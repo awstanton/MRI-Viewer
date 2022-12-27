@@ -2,22 +2,21 @@
 
 void MRIViewerFrame::openMenu(wxCommandEvent& WXUNUSED(event)) {
     wxFileDialog* OpenDialog = new wxFileDialog(
-		this, _("Choose a file to open"), wxEmptyString, wxEmptyString,
-		wxT("Text files (*.txt)|*.txt|C++ Source Files (*.cpp, *.cxx)|*.cpp;*.cxx| C Source files (*.c)|*.c|C header files (*.h)|*.h"), wxFD_OPEN, wxDefaultPosition);
-    if (OpenDialog->ShowModal() == wxID_OK) // if the user click "Open" instead of "Cancel"
-	{
+		this, wxT("Choose a file to open"), wxEmptyString, wxEmptyString,
+		wxT("Text files (*.txt)|*.txt|C++ Source Files (*.cpp)|*.cpp| C Source files (*.c)|*.c|C header files (*.h)|*.h"),
+        wxFD_OPEN, wxDefaultPosition);
+    if (OpenDialog->ShowModal() == wxID_OK) {
 		CurrentDocPath = OpenDialog->GetPath();
-		// Sets our current document to the file the user selected
-		MainEditBox->LoadFile(CurrentDocPath); //Opens that file
-		SetTitle(wxString("Edit - ") << OpenDialog->GetFilename()); // Set the Title to reflect the file open
+		MainEditBox->LoadFile(CurrentDocPath);
+		SetTitle(wxString("Edit - ") << OpenDialog->GetFilename());
 	}
 
-	// Clean up after ourselves
 	OpenDialog->Destroy();
+	return;
 }
 
 
-MRIViewerFrame::MRIViewerFrame() : wxFrame(NULL, wxID_ANY, "Hello World")
+MRIViewerFrame::MRIViewerFrame() : wxFrame(NULL, wxID_ANY, "MRI-Viewer", wxPoint(0, 0), wxSize(2450, 1000))
 {
     wxMenu *fileMenu = new wxMenu;
     wxMenu *mainMenu = new wxMenu;
@@ -28,7 +27,6 @@ MRIViewerFrame::MRIViewerFrame() : wxFrame(NULL, wxID_ANY, "Hello World")
 
     mainMenu->Append(wxID_OPEN, wxT("&Open File"));
     mainMenu->Bind(wxEVT_MENU, &MRIViewerFrame::openMenu, this, wxID_OPEN);
-
 
     mainMenuBar->Append(fileMenu, wxT("&File"));
     mainMenuBar->Append(mainMenu, wxT("Files"));
@@ -48,7 +46,7 @@ void MRIViewerFrame::OnExit(wxCommandEvent& event)
 
 void MRIViewerFrame::OnAbout(wxCommandEvent& event)
 {
-    wxMessageBox("This is a hello world example", "About Hello World", wxOK | wxICON_INFORMATION);
+    wxMessageBox("Slice scroll, independent components analysis, and Fourier analysis", "About MRI-Viewer", wxOK | wxICON_INFORMATION);
 }
 
 void MRIViewerFrame::OnHello(wxCommandEvent& event)
