@@ -1,9 +1,14 @@
+#include <wx/splitter.h>
+#include <wx/notebook.h>
+#include <wx/chartype.h>
 
-public class NIFile : {
+
+class NIFile
+{
 public:
-
-protected:
-
+    NIFile(wxNotebook* parent, const wxString& splitterName, const wxString& tabName, const wxString& imageName, const wxString& textName);
 private:
-
-}
+    wxSplitterWindow *splitter;
+    wxNotebook *imageNotebook;
+    wxNotebook *textNotebook;
+};
