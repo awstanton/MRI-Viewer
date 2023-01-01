@@ -19,7 +19,3 @@ NIFile::NIFile(wxNotebook* parent, const wxString& splitterName, const wxString&
 
 
 
-
-
-
-

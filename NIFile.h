@@ -1,6 +1,7 @@
 #include <wx/splitter.h>
 #include <wx/notebook.h>
 #include <wx/chartype.h>
+#include <nifti2_io.h>
 
 
 class NIFile

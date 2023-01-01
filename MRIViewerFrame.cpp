@@ -2,6 +2,17 @@
 #include "NIFile.h"
 
 
+MRIViewerFrame::MRIViewerFrame() : wxFrame(NULL, wxID_ANY, "MRI-Viewer")
+{
+    initMenu();
+
+    mainNotebook = new wxNotebook(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL, wxT("main panel"));
+    NIFile(mainNotebook, wxT("splitter name"), wxT("tab name"), wxT("image name"), wxT("text name"));
+
+    Maximize();
+}
+
+
 void MRIViewerFrame::initMenu() {
     mainMenuBar = new wxMenuBar;
     fileMenu = new wxMenu;
@@ -20,16 +31,6 @@ void MRIViewerFrame::initMenu() {
     actionMenu->Bind(wxEVT_MENU, &MRIViewerFrame::openMenu, this, MENU_Open);
     fileMenu->Bind(wxEVT_MENU, &MRIViewerFrame::OnAbout, this, wxID_ABOUT);
     fileMenu->Bind(wxEVT_MENU, &MRIViewerFrame::OnExit, this, wxID_EXIT);
-}
-
-MRIViewerFrame::MRIViewerFrame() : wxFrame(NULL, wxID_ANY, "MRI-Viewer")
-{
-    initMenu();
-
-    mainNotebook = new wxNotebook(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL, wxT("main panel"));
-    NIFile(mainNotebook, wxT("splitter name"), wxT("tab name"), wxT("image name"), wxT("text name"));
-
-    Maximize();
 }
 
 
