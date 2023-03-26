@@ -7,9 +7,10 @@
 class NIFile
 {
 public:
-    NIFile(wxNotebook* parent, const wxString& splitterName, const wxString& tabName, const wxString& imageName, const wxString& textName);
+    NIFile(wxNotebook* parent, nifti_image* niiImage, const wxString& splitterName, const wxString& fileName, const wxString& tabName, const wxString& imageName, const wxString& textName);
 private:
     wxSplitterWindow *splitter;
     wxNotebook *imageNotebook;
     wxNotebook *textNotebook;
+    wxImage *image;
 };

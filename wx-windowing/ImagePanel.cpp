@@ -1,9 +1,9 @@
 #include "ImagePanel.h"
 
-ImagePanel::ImagePanel(wxWindow* parent, wxString file, wxBitmapType format) : wxPanel(parent)
+ImagePanel::ImagePanel(wxWindow* parent, wxImage* image) : wxPanel(parent)
 {
     Bind(wxEVT_PAINT, &ImagePanel::paintEvent, this);
-    image.LoadFile(file, format);
+//    image.LoadFile(file, format);
     Refresh(false);
 }
 

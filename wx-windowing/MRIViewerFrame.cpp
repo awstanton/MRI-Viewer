@@ -7,7 +7,6 @@ MRIViewerFrame::MRIViewerFrame() : wxFrame(NULL, wxID_ANY, "MRI-Viewer")
     initMenu();
 
     mainNotebook = new wxNotebook(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL, wxT("main panel"));
-    NIFile(mainNotebook, wxT("splitter name"), wxT("tab name"), wxT("image name"), wxT("text name"));
 
     Maximize();
 }
@@ -36,18 +35,32 @@ void MRIViewerFrame::initMenu() {
 
 void MRIViewerFrame::openMenu(wxCommandEvent& WXUNUSED(event))
 {
+    // wxT("Text files (*.txt)|*.txt|C++ Source Files (*.cpp)|*.cpp| C Source files (*.c)|*.c|C header files (*.h)|*.h")
     wxFileDialog* OpenDialog = new wxFileDialog(
 		this, wxT("Choose a file to open"), wxEmptyString, wxEmptyString,
-		wxT("Text files (*.txt)|*.txt|C++ Source Files (*.cpp)|*.cpp| C Source files (*.c)|*.c|C header files (*.h)|*.h"),
+		wxT("Nifti files - zipped (*.nii.gz)|*.nii.gz| Nifti files (*.nii)|*.nii"),
         wxFD_OPEN, wxDefaultPosition);
     if (OpenDialog->ShowModal() == wxID_OK) {
 //        NIFile *niFile = new NIFile(OpenDialog->GetPath());
-//        mainSplitter->
+        // GET FILE NAME HERE
+        nifti_image* niiImage = nullptr;
+        wxString pathName = OpenDialog->GetPath();
+        wxFileName fileName = wxFileName(pathName);
+        wxString fullPathName = fileName.GetFullPath();
+        wxString ext1 = fileName.GetExt();
+        wxString ext2 = wxFileName(fileName.GetName()).GetExt();
+        if (ext1 == wxT("gz") || ext2 == wxT("nii")) {
+            niiImage = nifti_image_read(fullPathName, 1);
+        }
 
-
+//        if (fileName.getExt() == "nii.gz") {
+//
+//
+//        }
+        NIFile(mainNotebook, niiImage, wxT("splitter name"), pathName, wxT("tab name"), wxT("image name"), wxT("text name"));
 		currentDocPath = OpenDialog->GetPath();
 //		mainEditBox->LoadFile(currentDocPath);
-		SetTitle(wxString("Edit - ") << OpenDialog->GetFilename());
+//		SetTitle(wxString("Edit - ") << OpenDialog->GetFilename());
 	}
 }
 
